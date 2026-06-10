@@ -10,7 +10,7 @@ pipeline{
 		stage ('checkout'){
 			steps{
 				git branch:'master',
-				url=''
+				url:'https://github.com/Sowmithsow/Capstone-Project.git'
 			}
 		}
 		
