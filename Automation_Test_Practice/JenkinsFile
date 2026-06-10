@@ -1,30 +1,35 @@
-pipeline{
-	agent any
-	
-	tools{
-		maven 'Maven3'
-	}
-	
-	stages{
-		
-		stage ('checkout'){
-			steps{
-				git branch:'master',
-				url:'https://github.com/Sowmithsow/Capstone-Project.git'
-			}
-		}
-		
-		stage('Build'){
-			steps{
-				bat 'mvn clean compile'
-			}
-		}
-		
-		stage('Test'){
-			steps{
-				bat 'mvn test'
-			}
-		}
-	}
-	
+pipeline {
+    agent any
+
+    tools {
+        maven 'Maven3'
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git(
+                    branch: 'master',
+                    url: 'https://github.com/Sowmithsow/Capstone-Project.git'
+                )
+            }
+        }
+
+        stage('Build') {
+            steps {
+                dir('Automation_Test_Practice') {
+                    bat 'mvn clean compile'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                dir('Automation_Test_Practice') {
+                    bat 'mvn test'
+                }
+            }
+        }
+    }
 }
