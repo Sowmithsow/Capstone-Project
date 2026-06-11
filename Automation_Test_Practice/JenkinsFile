@@ -1,12 +1,9 @@
 pipeline {
     agent any
-
     tools {
         maven 'Maven3'
     }
-
     stages {
-
         stage('Checkout') {
             steps {
                 git(
@@ -15,7 +12,6 @@ pipeline {
                 )
             }
         }
-
         stage('Build') {
             steps {
                 dir('Automation_Test_Practice') {
@@ -23,12 +19,18 @@ pipeline {
                 }
             }
         }
-
         stage('Test') {
             steps {
                 dir('Automation_Test_Practice') {
                     bat 'mvn test'
                 }
+            }
+        }
+    }
+    post {
+        always {
+            dir('Automation_Test_Practice') {
+                archiveArtifacts artifacts: 'test-output/**, Reports/**, Screenshot/**', allowEmptyArchive: true
             }
         }
     }
